@@ -1,0 +1,204 @@
+<ion-header>
+  <page-home></page-home>
+</ion-header>
+
+<ion-content dir="rtl" padding>
+     <!--<p *ngIf="submitAttempt" style="color: #ea6153;"> אנא מלא את כל השדות</p>-->
+    <form [formGroup]="routineForm" >
+    <page-visit #myVisitPage [visitType]="visitType" 
+                             [clientName]="clientName"
+                             [submitAttempt]="submitAttempt" 
+                             [AccountId]="AccountId"
+                             [Token]="Token"></page-visit>
+
+    <ion-navbar color="secondary">
+        <ion-title>פרטים כלליים</ion-title>
+    </ion-navbar>
+
+    <enhanced-checkbox title="התקיימה שיחה עם הלקוח" [(ngModel)]="IsCallTookPlace" formControlName="IsCallTookPlace"
+       (choiceClicked)="IsCallTookPlace = $event" ngDefaultControl required="true"></enhanced-checkbox>
+    <ion-item *ngIf="!routineForm.controls.IsCallTookPlace.valid && (routineForm.controls.IsCallTookPlace.dirty || submitAttempt)">
+        <small>אנא הכנס האם התקיימה שיחה עם הלקוח</small>
+    </ion-item>
+    <ion-item *ngIf="IsCallTookPlace == false">
+        <ion-label stacked>מדוע לא התקיימה שיחה עם הלקוח</ion-label>
+        <ion-input type="text" [required]="IsCallTookPlace == false ? required: null" [(ngModel)]="CallDidntTookPlaceReasons" 
+           formControlName="CallDidntTookPlaceReasons"  [class.invalid]="routineForm.controls.CallDidntTookPlaceReasons.valid" ngDefaultControl>
+        </ion-input>
+    </ion-item>
+    <ion-item *ngIf="IsCallTookPlace == false &&  (!routineForm.controls.CallDidntTookPlaceReasons.valid && submitAttempt)">
+                <small>אנא הכנס מדוע לא התקיימה שיחה עם הלקוח</small>
+    </ion-item>
+    <enhanced-checkbox title="האם נבדק יומן העבודה" [(ngModel)]="isWorkingJournalChecked" formControlName="isWorkingJournalChecked"
+        (choiceClicked)="isWorkingJournalChecked = $event" ngDefaultControl required="true">
+    </enhanced-checkbox>
+    <ion-item *ngIf="!routineForm.controls.isWorkingJournalChecked.valid && (routineForm.controls.isWorkingJournalChecked.dirty || submitAttempt)">
+        <small>אנא הכנס האם נבדק יומן העבודה</small>
+    </ion-item>
+    <enhanced-checkbox *ngIf="isWorkingJournalChecked"  title="האם יומן העבודה תקין"  (choiceClicked)="isWorkingJournalValid = $event"></enhanced-checkbox>
+    <ion-navbar color="secondary">
+        <ion-title>מצב לקוח - הופעה חיצונית</ion-title>
+    </ion-navbar>
+    <ion-item>
+        <ion-label stacked>נקיון אישי</ion-label>
+        <ion-select [(ngModel)]="CleaningLevel" placeholder="בחר מצב נקיון אישי" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="CleaningLevel">
+            <ion-option *ngFor="let option of routineVisitService.getCleaningLevel()" [value]="option.id">{{option.value}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>ריח</ion-label>
+        <ion-select [(ngModel)]="SmellLevel" placeholder="בחר מצב ריח" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="SmellLevel">
+            <ion-option *ngFor="let option of routineVisitService.getSmellLevel()" [value]="option.id">{{option.value}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>הערות למצב חיצוני</ion-label>
+        <ion-input type="text" [(ngModel)]="AppearanceComments" formControlName="AppearanceComments"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>תיאור מצב בעת הביקור</ion-label>
+        <ion-input type="text" [(ngModel)]="PositionComments" formControlName="PositionComments"></ion-input>
+    </ion-item>
+    <enhanced-checkbox title="לבוש בהתאם לעונה" (choiceClicked)="IsDressedAccordingToseason = $event"></enhanced-checkbox>
+
+    <ion-navbar color="secondary">
+        <ion-title>מצב לקוח - התרשמות</ion-title>
+    </ion-navbar>
+    <ion-item>
+        <ion-label stacked>מצב סיעודי תפקודי</ion-label>
+        <ion-input type="text" [(ngModel)]="FunctionalLevelComments" placeholder="רגוע, כעוס, דיכאוני, ערני, מגיב באופן הולם למצבו, מסוגל לתאר מילולית את ריגשותיו" formControlName="FunctionalLevelComments"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>מצב רגשי</ion-label>
+        <ion-input type="text" [(ngModel)]="EmotionalLevelComments" formControlName="EmotionalLevelComments"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>מצב רפואי/מחלות</ion-label>
+        <ion-input type="text" [(ngModel)]="HealthLevelComments" formControlName="HealthLevelComments"></ion-input>
+    </ion-item>
+
+    <ion-navbar color="secondary">
+        <ion-title>מצב לקוח - מצב תזונתי</ion-title>
+    </ion-navbar>
+    <enhanced-checkbox title="קיימים מצרכי מזון בבית" (choiceClicked)="IsFoodExists = $event"></enhanced-checkbox>
+    <ion-item>
+        <ion-label stacked>הערות נוספות</ion-label>
+        <ion-input type="text" [(ngModel)]="FoodProductsComments" formControlName="FoodProductsComments"></ion-input>
+    </ion-item>
+
+    <ion-navbar color="secondary">
+        <ion-title>מצב לקוח - מצב דירה</ion-title>
+    </ion-navbar>
+    <ion-item>
+        <ion-label fixed>אוורור</ion-label>
+        <ion-select [(ngModel)]="VentelationLevel" placeholder="בחר מצב אוורור" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="VentelationLevel">
+            <ion-option *ngFor="let option of routineVisitService.getVentelationLevel()" [value]="option.id">{{option.value}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label fixed>חדר הלקוח</ion-label>
+        <ion-select [(ngModel)]="RoomCleaningLevel" placeholder="בחר מצב חדר הלקוח" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="RoomCleaningLevel">
+            <ion-option *ngFor="let option of routineVisitService.getRoomCleaningLevel()" [value]="option.id">{{option.value}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label fixed>מטבח</ion-label>
+        <ion-select [(ngModel)]="KitchenCleaningLevel" placeholder="בחר מצב מטבח" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="KitchenCleaningLevel">
+            <ion-option *ngFor="let option of routineVisitService.getKitchenCleaningLevel()" [value]="option.id">{{option.value}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label fixed>שירותים</ion-label>
+        <ion-select [(ngModel)]="ToiletLevel" placeholder="בחר מצב שירותים" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="ToiletLevel">
+            <ion-option *ngFor="let option of routineVisitService.getToiletLevel()" [value]="option.id">{{option.value}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label fixed>חדר אמבטיה</ion-label>
+        <ion-select [(ngModel)]="BathroomLevel" placeholder="בחר מצב חדר אמבטיה" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="BathroomLevel">
+            <ion-option *ngFor="let option of routineVisitService.getBathroomLevel()" [value]="option.id">{{option.value}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>אביזרי עזר/בטיחות</ion-label>
+        <ion-select [(ngModel)]="AccessoriesMatchingLevel" placeholder="התאמת אביזרים למצב תפקודי" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="AccessoriesMatchingLevel">
+            <ion-option *ngFor="let option of routineVisitService.getAccessoriesMatchingLevel()" [value]="option.id">{{option.value}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>הערות נוספות</ion-label>
+        <ion-input type="text" [(ngModel)]="AccessoriesMatchingLevelComments" formControlName="AccessoriesMatchingLevelComments"></ion-input>
+    </ion-item>
+
+    <ion-navbar color="secondary">
+        <ion-title>שינויים ואירועים</ion-title>
+    </ion-navbar>
+    <ion-item>
+        <ion-label stacked>שינויים ואירועים שארעו ללקוח</ion-label>
+        <ion-input type="text" [(ngModel)]="AccountChangesAndEventsComments" formControlName="AccountChangesAndEventsComments"></ion-input>
+    </ion-item>
+
+    <ion-navbar color="secondary">
+        <ion-title>משימות המטפל</ion-title>
+    </ion-navbar>
+    <enhanced-checkbox title="טיפול אישי" (choiceClicked)="IsPersonalCareRequired = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="ליווי והשגחה" (choiceClicked)="IsSupervisionRequired = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="קניות" (choiceClicked)="IsShoppingRequired = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="טיפול סיעודי" (choiceClicked)="IsNursingCareRequired = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="רחצה" (choiceClicked)="IsBathingRequired = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="ניהול משק בית" (choiceClicked)="IsHouseholdingRequired = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="החלפת מוצרי ספיגה" (choiceClicked)="IsChangingAbsorbentProductsRequired = $event"></enhanced-checkbox>
+
+    <ion-navbar color="secondary">
+        <ion-title>שביעות רצון הלקוח מהמטפל ומהטיפול</ion-title>
+    </ion-navbar>
+    <ion-item>
+        <ion-label stacked>שביעות רצון ממטפל</ion-label>
+        <ion-select [(ngModel)]="IsSatisfactionFromNurseLevel" placeholder="בחר שביעות רצון ממטפל" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="IsSatisfactionFromNurseLevel">
+            <ion-option *ngFor="let option of routineVisitService.getIsSatisfactionFromNurseLevel()" [value]="option.id">{{option.value}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <enhanced-checkbox title="האם מקבל טיפול לפי תוכנית" (choiceClicked)="IsNursingByProgram = $event"></enhanced-checkbox>
+    <ion-item>
+        <ion-label stacked>הערות נוספות</ion-label>
+        <ion-input type="text" [(ngModel)]="NursingByProgramComments" formControlName="NursingByProgramComments"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>תקלות בזמן שירות</ion-label>
+        <ion-input type="text" [(ngModel)]="ServiceFaultComments" formControlName="ServiceFaultComments"></ion-input>
+    </ion-item>
+
+    <ion-navbar color="secondary">
+        <ion-title>בקשות שהעלה הלקוח</ion-title>
+    </ion-navbar>
+    <enhanced-checkbox title="בקשת שינוי תוכנית" (choiceClicked)="PlanChangingRequest = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="עזרה בהקשת תביעה להחמרה" (choiceClicked)="IsClaimHelpRequired = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="בקשת לחצן מצוקה" (choiceClicked)="IsDistressSwitchRequired = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="מטפל עם לינה" (choiceClicked)="IsNurseWithSleepingArragment = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="התערבות גורם מקצועי בקהילה" (choiceClicked)="IsCommunityIntervention = $event"></enhanced-checkbox>
+    <ion-item>
+        <ion-label stacked>הערות נוספות</ion-label>
+        <ion-input type="text" [(ngModel)]="CommunityInterventionComments" formControlName="CommunityInterventionComments"></ion-input>
+    </ion-item>
+
+    <ion-navbar color="secondary">
+        <ion-title>סיכום</ion-title>
+    </ion-navbar>
+    <enhanced-checkbox title="קיימת חריגה הדורשת דיווח והמשך טיפול" (choiceClicked)="IsReportUnusualIssue = $event"></enhanced-checkbox>
+    <ion-item *ngIf="IsReportUnusualIssue == true">
+        <ion-label stacked>פירוט הערה חריגה</ion-label>
+        <ion-input type="text" [(ngModel)]="ReportUnusualIssueComments" formControlName="ReportUnusualIssueComments"></ion-input>
+    </ion-item>
+    <enhanced-checkbox title="
+    לקוח מכיר מישהו שזקוק למטפל" [(ngModel)]="IsClientKnowAnother"
+        formControlName="IsClientKnowAnother" (choiceClicked)="IsClientKnowAnother = $event" ngDefaultControl required="true">
+    </enhanced-checkbox>
+     <ion-item *ngIf="!routineForm.controls.IsClientKnowAnother.valid  && (routineForm.controls.IsClientKnowAnother.dirty || submitAttempt)">
+        <small>אנא הכנס האם הלקוח מכיר מישהו שזקוק למטפל</small>
+    </ion-item>
+    <div text-center>
+        <button ion-button class="buttons" (click)="saveRoutine()">שלח דוח</button>
+        <page-visit-footer></page-visit-footer>
+    </div>
+ </form>
+</ion-content>

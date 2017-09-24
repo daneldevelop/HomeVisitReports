@@ -1,0 +1,251 @@
+<ion-header>
+  <page-home></page-home>
+</ion-header>
+ 
+<ion-content dir="rtl" padding>
+    <form [formGroup]="firstForm" >
+    <page-visit #myVisitPage [visitType]="visitType" 
+                             [clientName]="clientName" 
+                             [submitAttempt]="submitAttempt" 
+                             [AccountId]="AccountId"
+                             [Token]="Token"></page-visit>
+ 
+     <ion-navbar color="secondary">  <!--Client Info-->
+        <ion-title>פרטי לקוח</ion-title>
+    </ion-navbar>
+   
+    <ion-item>
+       <ion-label stacked>ת.ז לקוח מקבל שירות</ion-label>  
+        <ion-input class="form-control" type="text" [(ngModel)]="AccountIdNumber" formControlName="AccountIdNumber" ></ion-input>
+   </ion-item>
+   <ion-item>
+      <ion-label stacked>תאריך לידה לקוח מקבל שירות</ion-label>
+      <ion-input type="text" [(ngModel)]="AccountBirthDate" (focus)="runCalendar()" (click)="runCalendar()" formControlName="AccountBirthDate"></ion-input>
+    </ion-item>
+
+    <enhanced-checkbox title="האם נדרש תיאום ביקור עם הלקוח" (choiceClicked)="IsCoordiateWithAccountNeeded = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="ניצול שואה" (choiceClicked)="IsHolocaustSurvivor = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="ערירי" (choiceClicked)="IsAlone = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="גר לבד" (choiceClicked)="IsLivingAlone = $event"></enhanced-checkbox>
+    <enhanced-checkbox title="בסיכון" (choiceClicked)="IsAtRisk = $event"></enhanced-checkbox>
+    <ion-item>
+       <ion-label stacked>מספר נפשות</ion-label>  
+        <ion-input type="text" [(ngModel)]="NumberOfPersons" formControlName="NumberOfPersons"></ion-input>
+    </ion-item>
+     <ion-item>
+       <ion-label stacked>מספר ילדים</ion-label>  
+        <ion-input type="text" [(ngModel)]="NumberOfChildren" formControlName="NumberOfChildren"></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label stacked>עיסוק</ion-label>  
+        <ion-input type="text" [(ngModel)]="Occupation" formControlName="Occupation"></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label stacked>קופת חולים</ion-label> 
+        <ion-input type="text" [(ngModel)]="Clinic" formControlName="Clinic"></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label stacked>סניף קופת חולים</ion-label>  
+        <ion-input type="text" [(ngModel)]="hmoBranch" formControlName="hmoBranch"></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label stacked>רופא מטפל</ion-label>
+        <ion-input type="text" [(ngModel)]="DoctorName" formControlName="DoctorName"></ion-input>
+    </ion-item>
+    <ion-item>
+       <ion-label stacked>תיאור הלקוח</ion-label> 
+        <ion-input type="text" [(ngModel)]="AccountDescription" formControlName="AccountDescription"></ion-input>
+    </ion-item>
+        <ion-item>
+       <ion-label stacked>מאפייני אישיות</ion-label> 
+        <ion-input type="text" [(ngModel)]="AccountPersonality" formControlName="AccountPersonality"></ion-input>
+    </ion-item>
+        <ion-item>
+       <ion-label stacked>שפה ותקשורת</ion-label>  
+        <ion-input type="text" [(ngModel)]="Language" formControlName="AccountPersonality"></ion-input>
+    </ion-item>
+        <ion-item>
+        <ion-label stacked>מצב סיעודי תפקודי</ion-label>
+        <ion-input type="text" [(ngModel)]="NursingInfo" placeholder="מגבלות וקשיים פיזיים, רגשיים ומנטליים" formControlName="NursingInfo"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>מצב רגשי</ion-label>
+        <ion-input type="text" [(ngModel)]="AccountEmotions" formControlName="AccountEmotions"></ion-input>
+    </ion-item>
+	<ion-item>
+        <ion-label stacked>מצב רפואי/מחלות</ion-label>
+        <ion-input type="text" [(ngModel)]="MedInfo" formControlName="MedInfo"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>תאור המערך החברתי והערכת טיב הקשר</ion-label>
+        <ion-input type="text" [(ngModel)]="AccountSocial" formControlName="AccountSocial"></ion-input>
+    </ion-item>
+	<ion-item>
+        <ion-label stacked>תנאי מגורים</ion-label>
+        <ion-input type="text" [(ngModel)]="ResidenceConditions" placeholder="שטח,סדר ונקיון,ציוד בסיסי" formControlName="ResidenceConditions"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>נגישות</ion-label>
+        <ion-input type="text" [(ngModel)]="Accessibility" placeholder="קומה,מרחק משירותים קהילתיים" formControlName="Accessibility"></ion-input>
+    </ion-item>
+	<ion-item>
+        <ion-label stacked>מיקום</ion-label>
+        <ion-input type="text" [(ngModel)]="Location" placeholder="תאור אזור המגורים, אפיונים מיוחדים" formControlName="Location"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>ציפיות הלקוח מהשירות</ion-label>
+        <ion-input type="text" [(ngModel)]="Expectation" formControlName="Expectation"></ion-input>
+    </ion-item>
+	<ion-item>
+        <ion-label stacked>הערכת צרכים טיפוליים ע"י עורך הביקור</ion-label>
+        <ion-input type="text" [(ngModel)]="Eestimateneeds" formControlName="Eestimateneeds"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>הגדרת תפקיד המטפל</ion-label>
+        <ion-input type="text" [(ngModel)]="Rolenurse" formControlName="Rolenurse"></ion-input>
+    </ion-item>
+	<ion-item>
+        <ion-label stacked>הערות לביקור</ion-label>
+        <ion-input type="text" [(ngModel)]="Notenursetask" formControlName="Notenursetask"></ion-input>
+    </ion-item>
+    <enhanced-checkbox title="האם הלקוח מכיר מישהו שזקוק למטפל"  [(ngModel)]="IsKnowOtherThatNeedHelp"
+        formControlName="IsKnowOtherThatNeedHelp"  (choiceClicked)="IsKnowOtherThatNeedHelp = $event"
+        ngDefaultControl required="true">
+    </enhanced-checkbox>
+    <ion-item *ngIf="!firstForm.controls.IsKnowOtherThatNeedHelp.valid  && (firstForm.controls.IsKnowOtherThatNeedHelp.dirty || submitAttempt)">
+        <small>אנא הכנס האם הלקוח זקוק למטפל</small>
+    </ion-item>
+    <enhanced-checkbox title="האם בוצעה הערכת טרום"  [(ngModel)]="IsTromDone" formControlName="IsTromDone"
+        (choiceClicked)="IsTromDone = $event" ngDefaultControl required="true">
+    </enhanced-checkbox>
+    <ion-item *ngIf="!firstForm.controls.IsTromDone.valid  && (firstForm.controls.IsTromDone.dirty || submitAttempt)">
+        <small>אנא הכנס האם בוצעה הערכת טרום</small>
+    </ion-item>
+
+    <div *ngIf="IsTromDone">
+        <ion-navbar color="secondary">
+            <ion-title>הערכת טרום - פרטים כללים</ion-title>
+        </ion-navbar>
+        <enhanced-checkbox title="האם ניתן טרום" [required]="IsTromDone ? 'required' : null"   [(ngModel)]="IsPreAssessment" formControlName="IsPreAssessment"
+           (choiceClicked)="IsPreAssessment = $event" ngDefaultControl >
+        </enhanced-checkbox>
+        <ion-item *ngIf="!firstForm.controls.IsPreAssessment.valid  && (firstForm.controls.IsPreAssessment.dirty || submitAttempt)">
+            <small>אנא הכנס האם ניתן טרום</small>
+       </ion-item>
+       <enhanced-checkbox title="קשיש בודד" (choiceClicked)="PreAssessmentIsAlone = $event"></enhanced-checkbox>
+        
+        <ion-navbar color="secondary"> 
+            <ion-title>הערכת טרום - ניידות</ion-title>
+        </ion-navbar>
+        <ion-item>
+            <ion-label stacked>נייד/בעזרת מכשיר אך זקוק/ה לעזרת אדם בהליכה</ion-label>
+            <ion-select [(ngModel)]="PreAssessmentMobilebyObject" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentMobilebyObject">
+                <ion-option *ngFor="let option of firstVisitService.getZeroOrOne()" [value]="option.id">{{option.value}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>זקוק לעזרת הזולת במעבר משכיבה לקימה</ion-label>
+            <ion-select [(ngModel)]="PreAssessmentHelpFromLayToStand" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentHelpFromLayToStand">
+                <ion-option *ngFor="let option of firstVisitService.getZeroOrOne()" [value]="option.id">{{option.value}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>זקוק לעזרת הזולת במעבר מישיבה לקימה</ion-label>
+            <ion-select [(ngModel)]="PreAssessmentHelpFromSittingToStand" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentHelpFromSittingToStand">
+                <ion-option *ngFor="let option of firstVisitService.getZeroOrOne()" [value]="option.id">{{option.value}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>משתמש בכסא גלגלים אך מסתדר לבד בתוך הבית</ion-label>
+            <ion-select [(ngModel)]="PreAssessmentUseWheelChair" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentUseWheelChair">
+                <ion-option *ngFor="let option of firstVisitService.getZeroOrOne()" [value]="option.id">{{option.value}}</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>מרותק\\לא הולך\\כסא גלגלים וזקוק לעזרה – צרף מסמכים</ion-label>
+            <ion-select [(ngModel)]="PreAssessmentDisabledWheelChair" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentDisabledWheelChair">
+                <ion-option *ngFor="let option of firstVisitService.getZeroOrOne()" [value]="option.id">{{option.value}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-navbar color="secondary">
+            <ion-title>ADL - הערכת טרום</ion-title>
+        </ion-navbar>
+            <ion-item >
+                <ion-label stacked>נפילות בבית</ion-label>
+                <ion-select [(ngModel)]="PreAssessmentFalling" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentFalling">
+                    <ion-option *ngFor="let option of firstVisitService.getPreAssessmentFalling()" [value]="option.id">{{option.value}}</ion-option>
+                </ion-select>
+            </ion-item>
+           <ion-item>
+                <ion-label stacked>הלבשה</ion-label>
+                <ion-select [(ngModel)]="PreAssessmentDressing" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentDressing">
+                    <ion-option *ngFor="let option of firstVisitService.getPreAssessmentDressing()" [value]="option.id">{{option.value}}</ion-option>
+                </ion-select>
+          </ion-item>
+          <ion-item>
+                <ion-label stacked>רחצה</ion-label>
+                <ion-select [(ngModel)]="PreAssessmentBathing" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentBathing">
+                    <ion-option *ngFor="let option of firstVisitService.getPrePreAssessmentBathing()" [value]="option.id">{{option.value}}</ion-option>
+                </ion-select>
+          </ion-item>
+          <ion-item>
+                <ion-label stacked>אכילה ושתייה</ion-label>
+                <ion-select [(ngModel)]="PreAssessmentDrinkeat" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentDrinkeat">
+                    <ion-option *ngFor="let option of firstVisitService.getPreAssessmentDrinkeat()" [value]="option.id">{{option.value}}</ion-option>
+                </ion-select>
+          </ion-item>
+          <ion-item>
+                <ion-label stacked>הפרשות</ion-label>
+                <ion-select [(ngModel)]="PreAssessmentSevretions" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentSevretions">
+                    <ion-option *ngFor="let option of firstVisitService.getPreAssessmentSevretions()" [value]="option.id">{{option.value}}</ion-option>
+                </ion-select>
+          </ion-item>
+          <ion-item>
+                <ion-label stacked>ראייה</ion-label>
+                <ion-select [(ngModel)]="PreAssessmentSight" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentSight">
+                    <ion-option *ngFor="let option of firstVisitService.getPreAssessmentSight()" [value]="option.id">{{option.value}}</ion-option>
+                </ion-select>
+          </ion-item>
+          <ion-item>
+                <ion-label stacked>דמנציה</ion-label>
+                <ion-select [(ngModel)]="PreAssessmentDementia" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentDementia">
+                    <ion-option *ngFor="let option of firstVisitService.getPreAssessmentDementia()" [value]="option.id">{{option.value}}</ion-option>
+                </ion-select>
+          </ion-item>
+          <ion-item>
+                <ion-label stacked>מרותקים לחלוטין</ion-label>
+                <ion-select [(ngModel)]="PreAssessmentTotallyenthralled" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentTotallyenthralled">
+                    <ion-option *ngFor="let option of firstVisitService.getPreAssessmentTotallyenthralled()" [value]="option.id">{{option.value}}</ion-option>
+                </ion-select>
+          </ion-item>
+
+         <ion-navbar color="secondary">
+               <ion-title>הערכת טרום - השגחה</ion-title>
+         </ion-navbar>
+         <ion-item>
+                <ion-label stacked>השגחה</ion-label>
+                <ion-select [(ngModel)]="PreAssessmentObservation" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="PreAssessmentObservation">
+                    <ion-option *ngFor="let option of firstVisitService.getPreAssessmentObservation()" [value]="option.id">{{option.value}}</ion-option>
+                </ion-select>
+         </ion-item>
+
+         <ion-navbar color="secondary"> 
+               <ion-title>הערכת טרום - הערות</ion-title>
+         </ion-navbar>
+         <ion-item>
+            <ion-label stacked>הערות לטרום</ion-label>
+            <ion-input type="text" [(ngModel)]="PreDescriptionComments" formControlName="PreDescriptionComments"></ion-input>
+         </ion-item>    
+    </div>
+
+        <div text-center>
+            <button ion-button  class="buttons" (click)="saveFirst();">שלח דוח</button>
+            <page-visit-footer></page-visit-footer>
+        </div>
+    </form>
+   </ion-content>
+
+ 
+
+

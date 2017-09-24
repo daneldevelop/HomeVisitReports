@@ -1,0 +1,28 @@
+<ion-header>
+  <page-home></page-home>
+</ion-header>
+
+<ion-content dir="rtl" padding>
+  <form [formGroup]="otherForm" >
+    <page-visit #myVisitPage [visitType]="visitType" 
+                             [clientName]="clientName"
+                             [submitAttempt]="submitAttempt" 
+                              [AccountId]="AccountId"
+                              [Token]="Token"></page-visit>  
+    <ion-item>
+            <ion-label stacked>סיבת ביקור אחר</ion-label>
+            <ion-select [(ngModel)]="AccountDescription" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="AccountDescription">
+                <ion-option *ngFor="let option of otherVisitService.getAccountDescription()" [value]="option.id">{{option.value}}</ion-option>
+            </ion-select>
+    </ion-item>
+   <ion-item>
+       <ion-label stacked>פירוט הביקור</ion-label>  
+        <ion-input class="form-control" type="text" [(ngModel)]="VisitDetails" formControlName="VisitDetails" ></ion-input>
+   </ion-item>
+
+    <div text-center>
+        <button ion-button class="buttons" (click)="saveOther()">שלח דוח</button>
+        <page-visit-footer></page-visit-footer>
+    </div>
+  </form >
+</ion-content>

@@ -1,0 +1,69 @@
+<ion-navbar text-center>
+    <h2>דיווח ביקור</h2>
+</ion-navbar>
+
+<ion-card>
+    <ion-card-header>
+        <ion-label color="primary" *ngIf="visitType">סוג ביקור: {{visitType}}</ion-label>
+        <ion-label color="primary" *ngIf="clientName">שם לקוח: {{clientName}}</ion-label>
+    </ion-card-header>
+</ion-card>
+
+<form  [formGroup]="visitForm">
+    <ion-item>
+        <ion-label stacked>מועד ביצוע הביקור</ion-label>
+        <ion-input type="text"  [(ngModel)]="ActualHomeVisitDate" (focus)="runCalendar()" (click)="runCalendar()" formControlName="ActualHomeVisitDate"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>רכב בו בוצע הביקור</ion-label>
+        <ion-select [(ngModel)]="VisitCar" placeholder="בחר רכב" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="VisitCar">
+            <ion-option *ngFor="let option of visitsService.getVisitCar()" [value]="option.id">{{option.value}}</ion-option>
+        </ion-select>
+   </ion-item>
+    <ion-item>
+        <ion-label stacked>סיבה לחריגה</ion-label>
+         <ion-select  [(ngModel)]="ExceptionReason" placeholder="בחר סיבה לחריגה"  okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="ExceptionReason">
+             <ion-option *ngFor="let option of visitsService.getExceptionReason()" [value]="option.id">{{option.value}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>סיבה להקדמת ביקור הבית</ion-label>
+         <ion-select  [(ngModel)]="EarlyReason" placeholder="בחר סיבה להקדמת ביקור הבית"  okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="EarlyReason">
+             <ion-option *ngFor="let option of visitsService.getEarlyReason()" [value]="option.id">{{option.value}}</ion-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>נוכחים בביקור מלבד הלקוח</ion-label>
+        <ion-input type="text" [(ngModel)]="AdditionalAttendence" formControlName="AdditionalAttendence"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>טלפון נוסף</ion-label>
+        <ion-input type="tel" [(ngModel)]="AdditionalPhone" formControlName="AdditionalPhone"></ion-input>
+    </ion-item>
+    <enhanced-checkbox title="האם לקוח נכח"  [(ngModel)]="IsAccountExists" formControlName="IsAccountExists"
+        (choiceClicked)="IsAccountExists = $event" ngDefaultControl required="true">
+    </enhanced-checkbox>
+	<ion-item *ngIf="!visitForm.controls.IsAccountExists.valid  && (visitForm.controls.IsAccountExists.dirty || submitAttempt)">
+        <small>אנא הכנס האם הלקוח נכח בפגישה</small>
+    </ion-item>
+
+    <enhanced-checkbox title="נערך בשעת הטיפול המתוכננת"   (choiceClicked)="IsOccuredAsPlanned = $event" ></enhanced-checkbox>
+    <enhanced-checkbox title="האם המטפל נכח"   [(ngModel)]="IsNurseExists" formControlName="IsNurseExists"  
+        (choiceClicked)="IsNurseExists = $event" ngDefaultControl required="true">
+    </enhanced-checkbox>
+    <ion-item *ngIf="!visitForm.controls.IsNurseExists.valid  && (visitForm.controls.IsNurseExists.dirty || submitAttempt)">
+        <small>אנא הכנס האם המטפל נכח</small>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>תז מטפל</ion-label>
+        <ion-input type="number" [(ngModel)]="NurseIdNumber" formControlName="NurseIdNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>שם מטפל שנכח</ion-label>
+        <ion-input type="text" [(ngModel)]="NurseName" formControlName="NurseName"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked>סיבה לאי נוכחות מטפל</ion-label>
+        <ion-input type="text" [(ngModel)]="NurseAbsenceReason" formControlName="NurseAbsenceReason"></ion-input>
+    </ion-item>
+</form>

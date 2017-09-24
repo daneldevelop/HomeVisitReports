@@ -1,0 +1,25 @@
+<ion-header>
+  <page-home></page-home>
+</ion-header>
+
+<ion-content dir="rtl" padding>
+  <form [formGroup]="assignForm" >
+    <page-visit #myVisitPage [visitType]="visitType" 
+                             [clientName]="clientName" 
+                             [submitAttempt]="submitAttempt" 
+                             [AccountId]="AccountId"
+                             [Token]="Token"></page-visit>
+    <enhanced-checkbox title="האם הלקוח מכיר מישהו שזקוק למטפל" [(ngModel)]="IsClientKnowAnother"
+      formControlName="IsClientKnowAnother" (choiceClicked)="IsClientKnowAnother = $event"
+      ngDefaultControl required="true">
+    </enhanced-checkbox>
+     <ion-item *ngIf="!assignForm.controls.IsClientKnowAnother.valid  && (assignForm.controls.IsClientKnowAnother.dirty || submitAttempt)">
+        <small>אנא הכנס האם הלקוח מכיר מישהו שזקוק למטפל</small>
+    </ion-item>
+
+    <div text-center>
+        <button ion-button class="buttons" (click)="saveAssign()">שלח דוח</button>
+        <page-visit-footer></page-visit-footer>
+    </div>
+  </form >
+</ion-content>

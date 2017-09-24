@@ -1,0 +1,53 @@
+<ion-header>
+  <page-home></page-home>
+</ion-header>
+
+<ion-content dir="rtl" padding>
+  <form [formGroup]="hospitalForm" >
+    <page-visit #myVisitPage [visitType]="visitType" 
+                             [clientName]="clientName" 
+                             [submitAttempt]="submitAttempt" 
+                             [AccountId]="AccountId"
+                             [Token]="Token"></page-visit>
+    <ion-item>
+        <ion-label stacked>תיאור הלקוח</ion-label>
+        <ion-input type="text" [(ngModel)]="AccountDescription" placeholder="מגבלות וקשיים פיזיים, רגשיים ומנטליים" formControlName="AccountDescription" ngDefaultControl
+            [class.invalid]="!hospitalForm.controls.AccountDescription.valid">
+        </ion-input>
+    </ion-item>
+     <ion-item *ngIf="!hospitalForm.controls.AccountDescription.valid && (hospitalForm.controls.AccountDescription.dirty || submitAttempt)">
+        <small>אנא הכנס תיאור לקוח</small>
+    </ion-item>
+    <ion-item>
+            <ion-label stacked>בית חולים </ion-label>
+            <ion-select [(ngModel)]="Hospital" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="Hospital">
+                <ion-option *ngFor="let option of hospitalVisitService.getHospital()" [value]="option.id">{{option.value}}</ion-option>
+            </ion-select>
+    </ion-item>
+	  <ion-item>
+            <ion-label stacked>מחלקה </ion-label>
+            <ion-select [(ngModel)]="Department" okText="אישור" cancelText="ביטול" interface="action-sheet" formControlName="Department">
+                <ion-option *ngFor="let option of hospitalVisitService.getDepartment()" [value]="option.id">{{option.value}}</ion-option>
+            </ion-select>
+   </ion-item>
+   <ion-item>
+       <ion-label stacked>מספר מחלקה</ion-label>  
+        <ion-input class="form-control" type="text" [(ngModel)]="WardNumber" formControlName="WardNumber" ></ion-input>
+   </ion-item>
+   <ion-item>
+       <ion-label stacked>מספר חדר</ion-label>  
+        <ion-input class="form-control" type="text" [(ngModel)]="RoomNumber" formControlName="RoomNumber" ></ion-input>
+   </ion-item>
+    <enhanced-checkbox title="האם הלקוח מכיר מישהו שזקוק למטפל" [(ngModel)]="IsClientKnowAnother"
+        formControlName="IsClientKnowAnother" (choiceClicked)="IsClientKnowAnother = $event"
+        ngDefaultControl required="true">
+    </enhanced-checkbox>
+     <ion-item *ngIf="!hospitalForm.controls.IsClientKnowAnother.valid && (hospitalForm.controls.IsClientKnowAnother.dirty || submitAttempt)">
+        <small>אנא הכנס האם הלקוח מכיר מישהו שזקוק למטפל</small>
+    </ion-item>
+    <div text-center>
+        <button ion-button class="buttons" (click)="saveHospital()">שלח דוח</button>
+        <page-visit-footer></page-visit-footer>
+    </div>
+  </form >
+</ion-content>

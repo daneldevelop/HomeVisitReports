@@ -1,0 +1,48 @@
+<ion-header>
+  <page-home></page-home>
+</ion-header>
+
+<ion-content padding dir="rtl" text-center>
+  <ion-navbar>
+    <h2>בחירת פעולה</h2>
+  </ion-navbar>
+  <div *ngIf="choosingScreen == 'tasks'">
+      <ion-row>
+        <ion-col>
+          <button ion-button class="buttons" (click)="tasks()">משימות</button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button ion-button class="buttons" (click)="reports()">דיווחים</button>
+        </ion-col>
+      </ion-row>
+  </div>
+  <div *ngIf="choosingScreen == 'visits'">
+    <ion-row>
+      <ion-col>
+       <button ion-button class="buttons" (click)="chooseHomeVisit(0,'ביקור בית שגרתי')" >ביקור בית שגרתי</button>
+      </ion-col>
+    </ion-row>
+   <ion-row>
+      <ion-col>
+   <button ion-button class="buttons" (click)="chooseHomeVisit(1,'ביקור בית השמה')" >ביקור בית השמה</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+    <button ion-button class="buttons" (click)="chooseHomeVisit(2,'ביקור בית אחר')">ביקור בית אחר</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button class="buttons" (click)="chooseHomeVisit(3,'ביקור בית חולים')">ביקור בית חולים</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button class="buttons" (click)="chooseHomeVisit(4,'ביקור בית ראשוני')">ביקור בית ראשוני</button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

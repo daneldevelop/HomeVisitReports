@@ -1,0 +1,54 @@
+<ion-header>
+  <page-home></page-home>
+</ion-header>
+
+<ion-content dir="rtl">
+  <ion-card>
+    <ion-card-header *ngIf="tasks  && numberOfTasks; else tasksNotFound">
+      <h1 >ישנם {{numberOfTasks}}  ביקורי בית לביצוע</h1>
+    </ion-card-header>
+    <ng-template #tasksNotFound>
+      <ion-card-header>
+        <h1 >לא קיימים ביקורי בית לביצוע</h1>
+      </ion-card-header>
+   </ng-template>
+
+    <ion-list>
+      <ion-item-group *ngFor="let task of tasks">
+        <ion-item-divider color="secondary">
+          {{task.nextVisitOnlyDate}}
+          <button ion-button (click)="recalculateRoute($event, task.nextVisitOnlyDate)" style="float: left">חשב מסלול מחדש</button>
+        </ion-item-divider>
+        <ion-navbar *ngFor="let visit of task.visits">
+          <ion-row>
+              <ion-col width-60 text-right (click)="navigateToTaskView($event, visit.task)">
+                שם הלקוח: {{visit.task.AccountFullName}}<br>
+                שעת הביקור:{{visit.nextVisitonlyhour}} <br>
+                כתובת: {{visit.City}} , {{visit.task.Street}}, {{visit.task.HomeNumber}} <br>
+              </ion-col>
+              <ion-col width-40 text-left>
+                 <button ion-button small>
+                    <ion-icon name="call" (click)="callPerson(visit.task.AccountPhone)"></ion-icon>
+                 </button>
+                 <button ion-button small>
+                   <ion-icon name="map" (click)="goToDirections($event, visit.task)"></ion-icon>
+                 </button>
+                 <button ion-button small>
+                   <ion-icon name="checkmark" (click)="navigateToTaskView($event, visit.task)"> </ion-icon>
+                 </button>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col>
+                <div *ngIf="visit.task.DelayedDueToHoliday"><img src="https://firebasestorage.googleapis.com/v0/b/homevisitorganizermobile.appspot.com/o/delay48.png?alt=media&token=c271a58a-5268-4c2e-9ea2-0aaf06d7c8e4" (click)="iconClicked('delay')" /></div>
+                <div *ngIf="visit.task.IsNurseVisitToday"><img src="https://firebasestorage.googleapis.com/v0/b/homevisitorganizermobile.appspot.com/o/nurse48.png?alt=media&token=792e5c66-0048-4833-a332-b3577acbca17" (click)="iconClicked('nurse')" /></div>
+                <div *ngIf="visit.task.IsTimePassed"><img src="https://firebasestorage.googleapis.com/v0/b/homevisitorganizermobile.appspot.com/o/late48.png?alt=media&token=2ab7738b-9f89-4711-8539-1e28886f6a2c" (click)="iconClicked('time')" /></div>
+                <div *ngIf="visit.task.IsCoordiateWithAccountNeeded"><img src="https://firebasestorage.googleapis.com/v0/b/homevisitorganizermobile.appspot.com/o/coordinateneeded.png?alt=media&token=3865846f-8832-4ae5-96c0-faf61030da31" (click)="iconClicked('coordinate')" /></div>
+                <div *ngIf="visit.task.IsAccountAbleToAnswer"><img src="https://firebasestorage.googleapis.com/v0/b/homevisitorganizermobile.appspot.com/o/abletoanswer.png?alt=media&token=9c8c5639-3962-4fba-b098-d8cdfffe80ed" (click)="iconClicked('answer')" /></div>
+              </ion-col>
+          </ion-row> 
+        </ion-navbar>
+      </ion-item-group>
+    </ion-list>
+  </ion-card>
+</ion-content>

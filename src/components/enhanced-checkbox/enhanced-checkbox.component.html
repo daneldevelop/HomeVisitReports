@@ -1,0 +1,9 @@
+<ion-label stacked>{{title}}</ion-label>
+<ion-row>
+  <ion-col col-2><button ion-button block name="btnYes" (click)="buttonClicked(true)" 
+    [style.background] = "currentChoice === 1 ? 'green' : 'grey'">כן</button></ion-col>
+  <ion-col col-2><button ion-button block name="btnYes" (click)="buttonClicked(undefined)"
+    [style.background] = "currentChoice === 2 ? (required === 'true' ? 'red' : primary) : 'grey'">בחר</button></ion-col>
+  <ion-col col-2><button ion-button block name="btnYes" (click)="buttonClicked(false)"
+    [style.background] = "currentChoice === 3 ? 'green' : 'grey'">לא</button></ion-col>
+</ion-row>

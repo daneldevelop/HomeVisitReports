@@ -1,0 +1,48 @@
+<ion-header>
+  <page-home></page-home>
+</ion-header>
+
+<ion-content dir="rtl" text-center>
+  <ion-navbar>
+    <h2>פרטי התחברות</h2>
+  </ion-navbar>
+    <ion-card>
+      <ion-card-content>
+        <div>
+          <ion-item>
+            <ion-label color="primary">שם משתמש</ion-label>
+            <ion-input id ="userName" [(ngModel)]="userName" name="userName"></ion-input>
+          </ion-item>
+          <!--<ion-row>
+            <ion-col col-10>
+              <ion-item>
+                <ion-label color="primary">סיסמא</ion-label>
+                <ion-input id="pwd" type="password" [(ngModel)]="pwd" name="pwd"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-2>
+              <ion-icon (click)="ShowHidePwd()" name="eye" item-right></ion-icon>
+            </ion-col>
+          </ion-row>-->
+          <ion-item>
+            <ion-label color="primary">סיסמא</ion-label>
+            <ion-input id="pwd" type="tel" [ngModel]="pwd" (ngModelChange)="changeInputDelay($event,1000)" name="pwd" required></ion-input>
+            <button ion-button clear color="dark" type="button" item-right (click)="ShowHidePwd()">
+              <ion-icon name="eye"> </ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>
+              <p *ngIf="eyeToggle" item-right>{{savePwd}}</p>
+        </ion-item>
+          <ion-item *ngIf="isValid === 1">
+              <small>שם משתמש או סיסמה לא קיימים במערכת</small>
+          </ion-item>
+        </div>
+        <ion-row>
+          <ion-col>
+            <button ion-button class="buttons" (click)="connect()">התחבר</button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+</ion-content>
