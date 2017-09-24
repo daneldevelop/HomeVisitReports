@@ -126,7 +126,7 @@ export class TasksPage {
         msg = 'נדרש תיאום';
         break;
       case 'answer':
-        msg = 'לקוח זמין לקבל שיחת טלפון';
+        msg = 'לא ניתן ליצור קשר עם הלקוח';
         break;
       default:
         msg = 'Messagenot defined for this operation';
