@@ -134,7 +134,7 @@ export class TasksPage {
 
     let toast = this.toastController.create({
       message: msg,
-      duration: 3500,
+      duration: 3000,
       position: 'top',
       cssClass: 'toastText'
     });
