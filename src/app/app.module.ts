@@ -9,6 +9,7 @@ import { AboutPage, ContactPage, HomePage, TabsPage, LoginPage, ActionChoosePage
 import { VisitPage, VisitFooterPage, RoutineVisitPage, AssignVisitPage,OtherVisitPage,HospitalVisitPage,FirstVisitPage } from '../pages/pages';
 import { TasksService, CrmService, VisitsService, RoutineVisitService, OtherVisitService, HospitalVisitService, FirstVisitService, LoginService,HomeVisitService } from '../shared/shared';
 import { EnhancedCheckboxComponent } from '../components/components'
+import { HebrewBool } from '../pipes/hebrewbool.pipe'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,7 +33,8 @@ import { DatePicker } from '@ionic-native/date-picker';
     OtherVisitPage,
     HospitalVisitPage,
     FirstVisitPage,
-    EnhancedCheckboxComponent
+    EnhancedCheckboxComponent,
+    HebrewBool
   ],
   imports: [
     BrowserModule,

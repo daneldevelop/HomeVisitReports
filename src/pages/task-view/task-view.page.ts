@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
+
 import { ActionChoosePage } from '../pages';
 import { TasksService } from '../../shared/shared';
 
@@ -54,5 +55,9 @@ export class TaskViewPage {
 
   getYesNoColor(answer) {
     return answer ? 'primary' : 'danger';
+  }
+
+  OpenDialer(phone) {
+    window.location.href = "tel:" + phone;
   }
 }

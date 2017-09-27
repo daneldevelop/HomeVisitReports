@@ -101,7 +101,7 @@ export class TasksPage {
   }
 
   navigateToTaskView($event, visit) {
-    let data = { visit: visit,Token:this.navParams.data.Token,AccountId: visit.AccountId};
+    let data = { visit: visit, Token: this.navParams.data.Token, AccountId: visit.AccountId};
     this.navCtrl.push(TaskViewPage, data);
   }
 

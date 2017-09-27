@@ -1,122 +1,167 @@
 <ion-header>
-  <page-home></page-home>
+  <ion-navbar>
+    <ion-title>פרטי ביקור בית</ion-title>
+  </ion-navbar>
 </ion-header>
 
-<ion-content dir="rtl">
-  <ion-navbar text-center>
-    <h2>פרטי ביקור בית</h2>
-  </ion-navbar>
+<ion-content dir="rtl" *ngIf="task">
+  
+  <ion-list>
+   
+      <ion-list-header color="primary">  </ion-list-header>
+      <ion-list-header color="primary"> פרטי לקוח </ion-list-header>
+    
+    <ion-item>
+      <p>שם לקוח</p>
+      <h3>{{task.AccountFullName}}</h3>
+    </ion-item>
 
-  <ion-card *ngIf="task">
-    <ion-navbar color="secondary">
-      <ion-card-header color="primary">פרטי לקוח</ion-card-header>
-    </ion-navbar>
-    <ion-card-content>
-      <ion-label>שם לקוח</ion-label>
-      <ion-label color="primary">{{task.AccountFullName}}</ion-label>
+    <ion-item>
+      <p>ת.ז. לקוח</p>
+      <h3>{{task.AccountIdNumber}}</h3>
+      </ion-item>
+    
+      <ion-item>	  
+          <p>טלפון</p>
+          <h3 (click)="OpenDialer(task.AccountPhone)">{{task.AccountPhone}}
+          </h3>
+      </ion-item> 
+    
+      <ion-item>  
+        <p>טלפון נייד</p>
+        <h3 (click)="OpenDialer(task.AccountMobilePhone)">{{task.AccountMobilePhone}}
+        </h3>
+      </ion-item> 
 
-      <ion-label>ת.ז. לקוח</ion-label>
-      <ion-label color="primary">{{task.AccountIdNumber}}</ion-label>
+      <ion-item>  
+        <p>טלפון נוסף</p>
+        <h3 (click)="OpenDialer(task.AccountAdditionalPhone)">{{task.AccountAdditionalPhone}}
+        </h3>
+      </ion-item> 
 
-      <ion-label>מבקר במרכז יום בימים</ion-label>
-      <ion-badge [color]="getYesNoColor(task.IsVisitDayCenter)">{{task.IsVisitDayCenter}}</ion-badge>
+      <ion-item>	  
+          <p>כתובת</p>
+          <h3>{{task.City}}  {{task.Street}}  {{task.HomeNumber}} </h3>
+        </ion-item>  
 
-      <ion-label>כשיר לשיחת טלפון</ion-label>
-      <ion-badge [color]="getYesNoColor(task.IsAccountAbleToAnswer)">{{task.IsAccountAbleToAnswer}}</ion-badge>
-      
-      <ion-label>כתובת</ion-label>
-      <ion-label color="primary">{{task.City}}  {{task.Street}}  {{task.HomeNumber}} </ion-label>
-      
-      <ion-label>דירה</ion-label>
-      <ion-label color="primary">{{task.Apartment}} </ion-label>
+        <ion-item>	  
+            <p>דירה</p>
+            <h3>{{task.Apartment}} </h3>
+        </ion-item>
 
-      <ion-label>טלפון</ion-label>
-      <ion-label color="primary">{{task.AccountPhone}}</ion-label>
-      
-      <ion-label>טלפון נייד</ion-label>
-      <ion-label color="primary">{{task.AccountMobilePhone}}</ion-label>
-       
-      <ion-label>מצב משפחתי</ion-label>
-      <ion-label color="primary">{{task.MaritialStatus}}</ion-label>
-      
-      <ion-label>ערירי</ion-label>
-      <ion-badge [color]="getYesNoColor(task.is_alone)">{{task.IsAlone}}</ion-badge>
-      
-      <ion-label>בסיכון</ion-label>
-      <ion-badge [color]="getYesNoColor(task.is_danger)">{{task.IsInRisk}}</ion-badge>
-      
-      <ion-label>ניצול שואה</ion-label>
-      <ion-badge [color]="getYesNoColor(task.is_survivor)">{{task.IsHolocaustSurvivor}}</ion-badge>
-      
-      <ion-label>שם איש קשר</ion-label>
-      <ion-label color="primary">{{task.ContactName}}</ion-label>
-      
-      <ion-label>טלפון איש קשר</ion-label>
-      <ion-label color="primary">{{task.ContactPhone}}  {{task.ContactMobilePhone}}  </ion-label>
-    </ion-card-content>
+        <ion-item>	   
+            <p>מצב משפחתי</p>
+            <h3 (click)="OpenDialer(task.MaritialStatus)">{{task.MaritialStatus}}</h3>
+        </ion-item>  
 
-    <ion-navbar color="secondary">
-      <ion-card-header color="primary">פרטי ביקור</ion-card-header>
-    </ion-navbar>
-    <ion-card-content>
-      <ion-label>תאריך הביקור</ion-label>
-      <ion-label color="primary" value="">{{task.NextVisitDate | date:'dd-MM-yy HH:mm'}}  </ion-label>
-      
-      <ion-label>תאריך ביקור קודם</ion-label>
-      <ion-label color="primary">{{task.PreviousVisitDate | date:'dd-MM-yy HH:mm'}}</ion-label>
-      
-      <ion-label>תדירות ביקורים</ion-label>
-      <ion-label color="primary">{{task.FrequencyHouseCall}}</ion-label>
-      
-      <ion-label>ימי ביקור במרכז יום</ion-label>
-      <ion-label color="primary">{{task.VisitInDayCenterDays}}</ion-label>
+        <ion-item>	  
+            <p>ערירי</p>
+            <ion-badge [color]="getYesNoColor(task.is_alone)">{{task.IsAlone | hebrewBool}}</ion-badge>
+         </ion-item>   
 
-      <ion-label>ימים שחלפו מביקור קודם</ion-label>
-      <ion-label color="primary">{{task.DaysPassedFromLastVisit}}</ion-label>
-      
-      <ion-label>סוג הביקור</ion-label>
-      <ion-label color="primary">{{task.VisitType}}</ion-label>
-      
-      <ion-label>העדרות לאחר ביקור אחרון</ion-label>
-      <ion-badge [color]="getYesNoColor(task.IsAccountAbsenceSinceLastVisit)">{{task.IsAccountAbsenceSinceLastVisit}}</ion-badge>
-      
-      <ion-label>ביקור נדחה בגלל שבת או חג</ion-label>
-      <ion-badge [color]="getYesNoColor(task.DelayedDueToHoliday)">{{task.DelayedDueToHoliday}}</ion-badge>
-      
-      <ion-label>נדרשת נוכחות מטפל/ת</ion-label>
-      <ion-badge [color]="getYesNoColor(task.IsNurseRequired)">{{task.IsNurseRequired}}</ion-badge>
-      
-      <ion-label>תיאום ביקור עם הלקוח</ion-label>
-      <ion-badge [color]="getYesNoColor(task.IsCoordinateWithAccount)">{{task.IsCoordinateWithAccount}}</ion-badge>
-    </ion-card-content>
+         <ion-item>	  
+            <p>בסיכון</p>
+            <ion-badge [color]="getYesNoColor(task.is_danger)">{{task.IsInRisk | hebrewBool}}</ion-badge>
+            </ion-item>  
 
+            <ion-item>	  
+                <p>ניצול שואה</p>
+                <ion-badge [color]="getYesNoColor(task.is_survivor)">{{task.IsHolocaustSurvivor | hebrewBool}}</ion-badge>
+           </ion-item> 
+           
+          <ion-item>	  
+            <p>כשיר לשיחת טלפון</p>
+            <ion-badge [color]="getYesNoColor(task.IsAccountAbleToAnswer)">{{task.IsAccountAbleToAnswer | hebrewBool}}</ion-badge>
+          </ion-item>  
+      
 
-    <ion-navbar color="secondary">
-      <ion-card-header color="primary">פרטי תוכנית</ion-card-header>
-    </ion-navbar>
-    <ion-card-content>
-      <ion-label>ימים בתוכנית</ion-label>
-      <ion-label color="primary">{{task.ProgramDetails}}</ion-label>
-      
-      <ion-label>שם מטפל בביקור הקרוב</ion-label>
-      <ion-label color="primary">{{task.NurseName}}</ion-label>
-      
-      <ion-label>טלפון מטפל</ion-label>
-      <ion-label color="primary">{{task.NursePhone}}</ion-label>
-      
-      <ion-label>טלפון נייד מטפל</ion-label>
-      <ion-label color="primary">{{task.NurseMobilePhone}}</ion-label>
-      
-      <ion-label>לקוח משלם</ion-label>
-      <ion-label color="primary">{{task.ProgramPayingAccount}}</ion-label>
-      
-      <ion-label>הערות</ion-label>
-      <ion-label color="primary" col-4>{{task.Comments}}</ion-label>
-    </ion-card-content>
-  </ion-card>
-      <ion-row>
-          <ion-col center text-center>
+  
+    
+    
+
+    
+    <ion-item>	  
+      <p>שם איש קשר</p>
+      <h3>{{task.ContactName}}</h3>
+      </ion-item>  
+    
+    <ion-item>	  
+      <p>טלפון איש קשר</p>
+      <h3>{{task.ContactPhone}}  {{task.ContactMobilePhone}}  </h3>
+      </ion-item>
+    
+  </ion-list>
+  <ion-list>
+    <ion-list-header color="primary">פרטי ביקור</ion-list-header>
+    <ion-item>	  
+      <p>תאריך הביקור</p>
+      <h3 value="">{{task.NextVisitDate | date:'dd-MM-yyyy'}}  </h3>
+      </ion-item>		  
+    <ion-item>		  
+      <p>תאריך ביקור קודם</p>
+      <h3>{{task.PreviousVisitDate | date:'dd-MM-yyyy'}}</h3>
+      </ion-item>		  
+    <ion-item>		  
+      <p>תדירות ביקורים</p>
+      <h3>{{task.FrequencyHouseCall}}</h3>
+      </ion-item>		  
+    <ion-item>		  
+      <p>ימי ביקור במרכז יום</p>
+      <h3>{{task.VisitInDayCenterDays}}</h3>
+      </ion-item>		  
+    <ion-item>
+      <p>ימים שחלפו מביקור קודם</p>
+      <h3>{{task.DaysPassedFromLastVisit}}</h3>
+      </ion-item>		  
+    <ion-item>		  
+      <p>סוג הביקור</p>
+      <h3>{{task.VisitType}}</h3>
+      </ion-item>		  
+    <ion-item>		  
+      <p>העדרות לאחר ביקור אחרון</p>
+      <ion-badge [color]="getYesNoColor(task.IsAccountAbsenceSinceLastVisit)">{{task.IsAccountAbsenceSinceLastVisit | hebrewBool}}</ion-badge>
+      </ion-item>		  
+    <ion-item>		  
+      <p>ביקור נדחה בגלל שבת או חג</p>
+      <ion-badge [color]="getYesNoColor(task.DelayedDueToHoliday)">{{task.DelayedDueToHoliday | hebrewBool}}</ion-badge>
+      </ion-item>		  
+    <ion-item>		  
+      <p>נדרשת נוכחות מטפל/ת</p>
+      <ion-badge [color]="getYesNoColor(task.IsNurseRequired)">{{task.IsNurseRequired | hebrewBool}}</ion-badge>
+      </ion-item>		  
+    <ion-item>		  
+      <p>תיאום ביקור עם הלקוח</p>
+      <ion-badge [color]="getYesNoColor(task.IsCoordinateWithAccount)">{{task.IsCoordinateWithAccount | hebrewBool}}</ion-badge>
+      </ion-item>		  	  
+    </ion-list>
+  <ion-list>
+    <ion-list-header color="primary">פרטי תוכנית</ion-list-header>	
+    <ion-item>	  
+        <p>ימים בתוכנית</p>
+      <h3>{{task.ProgramDetails}}</h3>
+      </ion-item>		  
+    <ion-item>		  
+      <p>שם מטפל בביקור הקרוב</p>
+      <h3>{{task.NurseName}}</h3>
+      </ion-item>		  
+    <ion-item>		  
+      <p>טלפון מטפל</p>
+      <h3>{{task.NursePhone}}</h3>
+      </ion-item>		  
+    <ion-item>		  
+      <p>טלפון נייד מטפל</p>
+      <h3>{{task.NurseMobilePhone}}</h3>
+      </ion-item>		  
+    <ion-item>		  
+      <p>לקוח משלם</p>
+      <h3>{{task.ProgramPayingAccount}}</h3>
+      </ion-item>		  
+    <ion-item>		  
+      <p>הערות</p>
+      <h3 col-4>{{task.Comments}}</h3>
+      </ion-item>
+      <ion-item>
             <button  fab-cente ion-button class="buttons" (click)="fillReport()">מלא דיווח לביקור</button>
-          </ion-col>
-      </ion-row>
+      </ion-item>		  
+    </ion-list>	 
 </ion-content>
