@@ -73,95 +73,85 @@
             <p>כשיר לשיחת טלפון</p>
             <ion-badge [color]="getYesNoColor(task.IsAccountAbleToAnswer)">{{task.IsAccountAbleToAnswer | hebrewBool}}</ion-badge>
           </ion-item>  
-      
 
-  
-    
-    
+          <ion-item>		  
+            <p>ימי ביקור במרכז יום</p>
+            <h3>{{task.VisitInDayCenterDays}}</h3>
+            </ion-item>		  
+       
 
-    
-    <ion-item>	  
-      <p>שם איש קשר</p>
-      <h3>{{task.ContactName}}</h3>
-      </ion-item>  
-    
-    <ion-item>	  
-      <p>טלפון איש קשר</p>
-      <h3>{{task.ContactPhone}}  {{task.ContactMobilePhone}}  </h3>
-      </ion-item>
-    
-  </ion-list>
-  <ion-list>
-    <ion-list-header color="primary">פרטי ביקור</ion-list-header>
-    <ion-item>	  
-      <p>תאריך הביקור</p>
-      <h3 value="">{{task.NextVisitDate | date:'dd-MM-yyyy'}}  </h3>
-      </ion-item>		  
-    <ion-item>		  
-      <p>תאריך ביקור קודם</p>
-      <h3>{{task.PreviousVisitDate | date:'dd-MM-yyyy'}}</h3>
-      </ion-item>		  
-    <ion-item>		  
-      <p>תדירות ביקורים</p>
-      <h3>{{task.FrequencyHouseCall}}</h3>
-      </ion-item>		  
-    <ion-item>		  
-      <p>ימי ביקור במרכז יום</p>
-      <h3>{{task.VisitInDayCenterDays}}</h3>
-      </ion-item>		  
-    <ion-item>
-      <p>ימים שחלפו מביקור קודם</p>
-      <h3>{{task.DaysPassedFromLastVisit}}</h3>
-      </ion-item>		  
-    <ion-item>		  
-      <p>סוג הביקור</p>
-      <h3>{{task.VisitType}}</h3>
-      </ion-item>		  
-    <ion-item>		  
-      <p>העדרות לאחר ביקור אחרון</p>
-      <ion-badge [color]="getYesNoColor(task.IsAccountAbsenceSinceLastVisit)">{{task.IsAccountAbsenceSinceLastVisit | hebrewBool}}</ion-badge>
-      </ion-item>		  
-    <ion-item>		  
-      <p>ביקור נדחה בגלל שבת או חג</p>
-      <ion-badge [color]="getYesNoColor(task.DelayedDueToHoliday)">{{task.DelayedDueToHoliday | hebrewBool}}</ion-badge>
-      </ion-item>		  
-    <ion-item>		  
-      <p>נדרשת נוכחות מטפל/ת</p>
-      <ion-badge [color]="getYesNoColor(task.IsNurseRequired)">{{task.IsNurseRequired | hebrewBool}}</ion-badge>
-      </ion-item>		  
-    <ion-item>		  
-      <p>תיאום ביקור עם הלקוח</p>
-      <ion-badge [color]="getYesNoColor(task.IsCoordinateWithAccount)">{{task.IsCoordinateWithAccount | hebrewBool}}</ion-badge>
-      </ion-item>		  	  
+            <ion-item>	  
+              <p> שם איש קשר ראשי</p>
+              <h3>{{task.ContactName}}</h3>
+              </ion-item>  
+            
+            <ion-item>	  
+              <p>טלפון איש קשר ראשי</p>
+              <h3>{{task.ContactPhone}}  {{task.ContactMobilePhone}}  </h3>
+              </ion-item>
+   </ion-list>
+   <ion-list>
+            <ion-list-header color="primary">פרטי ביקור</ion-list-header>
+          <ion-item>	  
+            <p>תאריך ביקור לביצוע</p>
+            <h3 value="">{{task.NextVisitDate | date:'dd-MM-yyyy'}}  </h3>
+            </ion-item>	
+
+            <ion-item>		  
+                <p>תאריך ביקור בית אחרון</p>
+                <h3>{{task.PreviousVisitDate | date:'dd-MM-yyyy'}}</h3>
+            </ion-item>	
+
+          <ion-item>	
+              <p>ימים שחלפו מביקור קודם</p>
+              <h3>{{task.DaysPassedFromLastVisit}}</h3>
+          </ion-item>		  
+        
+          <ion-item>		  
+              <p>תדירות ביקורים</p>
+              <h3>{{task.FrequencyHouseCall}}</h3>
+          </ion-item>	
+
+          <ion-item>		  
+            <p>תיאום ביקור עם הלקוח</p>
+            <ion-badge [color]="getYesNoColor(task.IsCoordinateWithAccount)">{{task.IsCoordinateWithAccount | hebrewBool}}</ion-badge>
+          </ion-item>	
+        
+          <ion-item>		  
+            <p>נדחה עקב שבת או חג</p>
+            <ion-badge [color]="getYesNoColor(task.DelayedDueToHoliday)">{{task.DelayedDueToHoliday | hebrewBool}}</ion-badge>
+          </ion-item>
+        
+          <ion-item>		  
+            <p>נדרשת נוכחות מטפל/ת</p>
+            <ion-badge [color]="getYesNoColor(task.IsNurseRequired)">{{task.IsNurseRequired | hebrewBool}}</ion-badge>
+          </ion-item>		 
+        
+          <ion-item>		  
+            <p>העדרות לאחר ביקור אחרון</p>
+            <ion-badge [color]="getYesNoColor(task.IsAccountAbsenceSinceLastVisit)">{{task.IsAccountAbsenceSinceLastVisit | hebrewBool}}</ion-badge>
+          </ion-item>	
+
+          <ion-item>		  
+            <p>הערות לביקור</p>
+            <h3>{{task.Comments}}</h3>
+          </ion-item>
+
+          <ion-item>		  
+            <p>הערות מהזדמנות בהעברה לסניף</p>
+            <h3>{{task.MashlatRemark}}</h3>
+          </ion-item>	
+
+          <ion-item>		  
+            <p>סוג הביקור</p>
+            <h3>{{task.VisitType}}</h3>
+          </ion-item>		  	  
     </ion-list>
-  <ion-list>
-    <ion-list-header color="primary">פרטי תוכנית</ion-list-header>	
-    <ion-item>	  
-        <p>ימים בתוכנית</p>
-      <h3>{{task.ProgramDetails}}</h3>
-      </ion-item>		  
-    <ion-item>		  
-      <p>שם מטפל בביקור הקרוב</p>
-      <h3>{{task.NurseName}}</h3>
-      </ion-item>		  
-    <ion-item>		  
-      <p>טלפון מטפל</p>
-      <h3>{{task.NursePhone}}</h3>
-      </ion-item>		  
-    <ion-item>		  
-      <p>טלפון נייד מטפל</p>
-      <h3>{{task.NurseMobilePhone}}</h3>
-      </ion-item>		  
-    <ion-item>		  
-      <p>לקוח משלם</p>
-      <h3>{{task.ProgramPayingAccount}}</h3>
-      </ion-item>		  
-    <ion-item>		  
-      <p>הערות</p>
-      <h3 col-4>{{task.Comments}}</h3>
-      </ion-item>
-      <ion-item>
-            <button  fab-cente ion-button class="buttons" (click)="fillReport()">מלא דיווח לביקור</button>
-      </ion-item>		  
-    </ion-list>	 
+  <ion-list no-lines>
+           <ion-list-header color="primary">פרטי תוכנית</ion-list-header>	
+           <ion-item>	
+             <button  fab-cente ion-button class="buttons" (click)="fillReport()">מלא דיווח לביקור</button>
+           </ion-item>	
+           <ion-item>	</ion-item>	
+  </ion-list>	 
 </ion-content>
