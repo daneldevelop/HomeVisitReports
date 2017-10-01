@@ -20,7 +20,7 @@
           <button ion-button (click)="recalculateRoute($event, task.nextVisitOnlyDate)" style="float: left">חשב מסלול מחדש</button>
         </ion-item-divider>
         <ion-navbar *ngFor="let visit of task.visits">
-          <ion-row>
+          <ion-row [ngClass] = "{ visit_item : (isToBold(visit.task.ShouldHideTime, visit.task.NextVisitDate)) }">
               <ion-col width-60 text-right (click)="navigateToTaskView($event, visit.task)">
                 שם הלקוח: {{visit.task.AccountFullName}}<br>
                 שעת הביקור:{{visit.nextVisitonlyhour}} <br>

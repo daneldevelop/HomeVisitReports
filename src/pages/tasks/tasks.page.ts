@@ -62,7 +62,7 @@ export class TasksPage {
         
         
         this.groupedTasks =
-          _.sortBy(this.tasksView, [function(o) { return o.nextVisitOnlyDate }]);
+          _.sortBy(this.tasksView, [function(o) { return o.task.NextVisitDate }]);
         
       
         this.groupedTasks = 
@@ -79,14 +79,12 @@ export class TasksPage {
       })
     };
   
-
-
-  getDate(date){
-    return moment(date).format('DD-MM-YYYY');  ;
+  getDate(date) {
+    return moment(date).format('DD-MM-YYYY');
   }
 
   getHours(date){
-     return moment(date).format('HH:MM');  ;
+     return moment(date).format('HH:MM');
   }
  
  getNumbersOfTasks(){
@@ -140,5 +138,17 @@ export class TasksPage {
     });
 
     toast.present();
+  }
+
+  isToBold(shouldHideTime, nextVisitDate) {
+    if (shouldHideTime) return false;
+    var nVisitDate = new Date(nextVisitDate);
+    var todaysDate = new Date();
+    if (nVisitDate.toDateString() !== todaysDate.toDateString()) return false;
+    var oneHour = 60 * 60 * 1000;
+    var hoursDeficit = nVisitDate.getHours() - Date.now();
+    var isAnHourfromVisit = hoursDeficit <= oneHour;
+    var isTodayVisitPass = todaysDate.getTime() > nVisitDate.getTime();
+    return (isAnHourfromVisit || isTodayVisitPass);
   }
 }
